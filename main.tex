@@ -1,0 +1,135 @@
+\documentclass{3s-report}
+
+
+\project{ACRONYM: This is a Report Template}
+\course{(Advanced) Distributed Systems Prototyping}
+\semester{Summer 2026}
+
+% \addauthor{}{}{}{}:
+% - Name            Your preferred name
+% - Email           Your university email address
+% - Student ID      Ger. Matrikelnummer
+% - Contributions   The chapters you worked on; consider using \cref
+%
+% It's common practice to order authors alphabetically by their last name.
+\addauthor{Jane Doe}{jane.doe@campus.tu-berlin.de}{123456}{\cref{sec:intro}}
+\addauthor{Alice Smith}{alice@example.com}{123456}{\cref{sec:intro}}
+
+\summary{
+    This is a report template for the (A)DSP class at the scalable software systems chair.
+    In case you run into any issues while using it, please talk to me (Natalie) or email me at \href{mailto:carl@tu-berlin.de}{carl@tu-berlin.de} :)
+}
+
+
+\begin{document}
+
+    \maketitle
+
+    \section{Using This Class}\label{sec:intro}
+    Here are some examples of how to use this template to write your project report.
+    If you're writing a lot, or just have multiple people working on the report, you might want to consider moving the sections into individual files and importing them like this, for example.
+
+    \begin{minted}{tex}
+\input{sections/1_intro.tex}
+    \end{minted}
+
+    \subsection{Formatting}
+
+    \paragraph{Plots and figures}
+    Please please please use vector graphics for your plots and figures, i.e., just create them as svg or pdf.
+    For your figures, you can even do that with PowerPoint or use actual graphics software.
+    There are free options that are pretty good, like \href{https://draw.io}{draw.io} or \href{https://www.affinity.studio/}{Affinity}, if you don't need the AI features.
+    I included some commands for printing different measurements of this document, which you can use to create your plots with the correct sizes.
+    This way, you don't need to mess with \texttt{[width=1.23456\textbackslash linewidth]} and end up with different font sizes everywhere.
+    For example, \cref{table:measurements} shows the size of \texttt{\textbackslash columnwidth} in different units.
+    \begin{table}[!h]
+        \noindent\begin{tabularx}{\linewidth}{ X X X }
+            \toprule
+            \bf{In} & \bf{Cm} & \bf{Pt} \\
+            \midrule
+            \measurein{\columnwidth} & \measurecm{\columnwidth} & \measurept{\columnwidth} \\
+            \bottomrule
+        \end{tabularx}
+        \caption{Column width in different units.}
+        \label{table:measurements}
+    \end{table}
+
+    \noindent You can use this directly in your code to set the size of your plot, here's an example for Matplotlib.
+    \begin{minted}{python}
+fig, ax = plt.subplots(
+    figsize=(3.14,2),
+    constrained_layout=True
+)
+    \end{minted}
+    In this case, I rounded the width a bit and changed the height until a liked the aspect ratio.
+
+    \paragraph{Formatting tables}
+    For creating tables, I recommend using the \href{https://ftp.agdsn.de/pub/mirrors/latex/dante/macros/latex/required/tools/tabularx.pdf}{tabularx} package.
+    This provides the \texttt{X} column type, which automatically resizes to make use of the full table width.
+    I also included a column type \texttt{Y}, which works the same but centers the content.
+    For making formatting decisions, I highly suggest reading the \href{https://ctan.joethei.xyz/macros/latex/contrib/booktabs/booktabs.pdf}{booktabs documentation}.
+    Of course, you're free to deviate from it and be as opinionated as you like when it comes to table formatting.
+    However, if you don't want to spend too much time thinking about how your tables look, following their advice usually results in nice looking tables.
+
+    \paragraph{Working with units}
+    Working with and typesetting numbers and units correctly quickly gets tiresome!
+    There are a bunch of competing standards, and remembering your preferred one and applying it consistently is exactly the kind of thing we can easily automate.
+    The \href{https://ftp.gwdg.de/pub/ctan/macros/latex/contrib/siunitx/siunitx.pdf}{siunitx} package does precisely this.
+    The SI, or \emph{Système international d'unités}, is the most widely used system for handling measurements and typesetting them.
+    The siunitx package automates the typesetting conventions defined in the SI.
+    It has many features that you can look up in the documentation I linked to above, but the most important one is probably just the following.
+    To typeset a quantity of \emph{something}, you can use the macro below, and it will render like this: \qty{123}{\cm}.
+    \begin{minted}{tex}
+\qty{123}{\cm}
+    \end{minted}
+    A list of supported units is also found at the end of the documentation, you could even define your own units, among many other features.\!\footnote{
+        If you look carefully, you can see that I didn't follow my own advice in \cref{table:measurements}.
+        That's because the macro I defined for printing TeX-internal things doesn't give me any control over the typesetting.
+        So do as I say, not as I do. :)
+    }
+
+    \subsection{Spelling and grammar}
+
+    \paragraph{Spell checking}
+    (A)DSP reports are usually written in English, but you can talk to your advisor if that's an issue for you, and we'll usually figure something out that works best for the group.
+    Regardless, please use a spell checker while writing your report --- it makes your and our lives a lot easier.
+    As an example, I like to use the \href{https://zed.dev}{Zed} text editor, which has \LaTeX\ support, and there's the \href{https://zed.dev/extensions/ltex}{LTeX} extension, which is pretty ok.
+    Most people at our chair use VSCode, there are similar extensions available for that, too.
+    I find the LTeX spell checker to be a bit buggy with VSCode and haven't yet had any problems with it while using Zed, but your mileage may vary.
+    Of course, use whatever you're most comfortable with; \href{https://www.overleaf.com/}{overleaf} is probably easiest for group projects.
+
+    \paragraph{Aside}
+    There are lots of varying rules for which words to capitalize in English headings depending on which style guide you follow.
+    There's a website to help you: \url{https://capitalizemytitle.com/}.
+    Just copy your section titles in there and use sentence case for everything else.
+
+    \paragraph{Common issues}
+    Here are some random spelling mistakes I see frequently in project reports, which I think mostly stem for subtle differences between English and German.
+    First, \enquote{that} and \enquote{which} aren't synonyms, in American English at least.
+    \href{https://www.thepunctuationguide.com/comma.html\#:\textasciitilde:text=That\%20and\%20which}{This website} has a great overview of grammar stuff and also talks about when to use \enquote{which} and \enquote{that}.
+    Next, the use of hyphens and dashes differs slightly between English and German.
+    While in German, you would use a hyphen (\enquote{Bindestrich}, -) to combine words or to express ranges of numbers and an en dash for offsetting information (\enquote{Gedankenstrich}, --), English makes a distinction between hyphens (-), en dashes (--), and em dashes (---).
+    Roughly, the hyphen is used for joining or splitting words, the en dash is used to express ranges and relationships, and the em dash is used for offsetting information.
+    A great overview can also be found here: \url{https://www.thepunctuationguide.com/}.
+    Some people that have too much free time on their hands like to argue on the internet about whether to put spaces around em dashes; I don't think you need to spend a lot of time thinking about this, you'll be fine as long as you pick one option at random and stick to it.
+    Lastly, comma rules are also different.
+    Here, its probably easiest to use a good spell checker or LLM; alternatively, I'd again point to the punctuation guide for a great overview.
+
+    \subsection{Citing papers and other sources}
+    You can cite your references like this.
+    \begin{minted}{tex}
+\cite{sharma2023challenges}
+    \end{minted}
+    One important thing with this citation style is not to treat the reference created by the cite macro as normal part of the text but only as a pointer to the bibliography at the end.
+    So writing in the following way wouldn't be correct.
+    \begin{quote}
+        \sout{\cite{petroff2024accessible} wrote interesting things about accessible color schemes.}
+    \end{quote}
+    Instead, you could write the following.
+    \begin{quote}
+        Petroff wrote interesting things about accessible color schemes~\cite{petroff2024accessible}.
+    \end{quote}
+    For citing multiple references in the same sentence, just add them after a comma in the same call of the cite macro and biblatex will handle the rest, like this~\cite{petroff2024accessible,sharma2023challenges}.
+
+    \printbibliography
+\end{document}

@@ -1,0 +1,14 @@
+Hi! This is a report template I hacked together with some sample text to show how to use it.
+In case you run into any problems, just talk to me or message me on Slack and I'll do my best to fix them!
+
+You can use this on overleaf by copying over the following files.
+- .latexmkrc
+- main.tex
+- 3s-report.cls
+- references.bib
+
+When I tested this, I ran into a compile duration limit when I wasn't logged in properly.
+If you use the institutional login via TU, this problem shouldn't occur.
+
+If you want to use this locally instead, my setup uses `mactex-no-gui` + the zed editor.
+I just run a terminal with `latexmk -pvc` to continuously check for any changes in the files and recompile on save.
